@@ -1,50 +1,69 @@
-const firstLine = "┌──────────────────────────────────┐"
-const secondLine = " \n│           ┎---┑	           │";
-const thirdLine = "\n│           |  ( )                 │";
-const fourthLine = "\n│           |   |                  │";
-const fifthLine = "\n│           |  / \\                 │";
-const sixthLine = "\n│           |______                │";
-const seventhLine = "\n└──────────────────────────────────┘";
+function firstScene() {
+  console.log("┌──────────────────────────────────┐");
+  console.log("│   ┎---┑	                   │");
+  console.log("│   |                      (🥺)    │");
+  console.log("│   |                       |      │");
+  console.log("│   |                      / \\     │");
+  console.log("│   |______                        │");
+  console.log("└──────────────────────────────────┘");
+}
 
-const first = firstLine + secondLine;
-const second = first + thirdLine;
-const third = second + fourthLine;
-const fourth = third + fifthLine;
-const fifth = fourth + sixthLine + seventhLine;
+function secondScene() {
+  console.log("┌──────────────────────────────────┐");
+  console.log("│   ┎---┑	                   │");
+  console.log("│   |                 (😢)         │");
+  console.log("│   |                  |           │");
+  console.log("│   |                 / \\          │");
+  console.log("│   |______                        │");
+  console.log("└──────────────────────────────────┘");
+}
 
-function generateImage(numberOfIncorrect) {
-  switch (numberOfIncorrect) {
+function thirdScene() {
+  console.log("┌──────────────────────────────────┐");
+  console.log("│   ┎---┑	                   │");
+  console.log("│   |            (😖)              │");
+  console.log("│   |             |                │");
+  console.log("│   |            / \\               │");
+  console.log("│   |______                        │");
+  console.log("└──────────────────────────────────┘");
+}
+
+function fourthScene() {
+  console.log("┌──────────────────────────────────┐");
+  console.log("│   ┎---┑	                   │");
+  console.log("│   |       (😭)                   │");
+  console.log("│   |        |                     │");
+  console.log("│   |       / \\                    │");
+  console.log("│   |______                        │");
+  console.log("└──────────────────────────────────┘");
+}
+
+function fifthScene(answer) {
+  console.log("┌──────────────────────────────────┐");
+  console.log("│   ┎---┑	                   │");
+  console.log("│   |  (🫠)                        │");
+  console.log("│   |   |                          │");
+  console.log("│   |  / \\                         │");
+  console.log("│   |______                        │");
+  console.log("└──────────────────────────────────┘");
+
+  console.log("Committed Suicide ☠️ \n");
+  console.log("The answer is: ", answer);
+}
+
+function sceneToPlay(scene, answer) {
+  switch (scene) {
     case 1:
-      return firstImage();
+      return firstScene();
     case 2:
-      return secondImage();
+      return secondScene();
     case 3:
-      return thirdImage();
+      return thirdScene();
     case 4:
-      return fourthImage();
+      return fourthScene();
     case 5:
-      return fifthImage();
+      return fifthScene(answer);
   }
-}
-
-function firstImage() {
-  console.log(first);
-}
-
-function secondImage() {
-  console.log(second);
-}
-
-function thirdImage() {
-  console.log(third);
-}
-
-function fourthImage() {
-  console.log(fourth);
-}
-
-function fifthImage() {
-  console.log(fifth, "\ncommitted Suicide ☠️\n");
 }
 
 function won() {
@@ -64,8 +83,10 @@ function riddleQuestions(questionNum) {
       return;
     case 4:
       console.log("What goes away as soon as you talk about it?");
+      return;
     case 5:
       console.log("I can be bigger than you but weigh nothing at all,What am I?");
+      return;
   }
 }
 
@@ -91,29 +112,28 @@ function isGuessMatching(userGuess, questionNum) {
 
 function takeInput(numberOfIncorrect, questNum) {
   for (let chance = 5; chance >= 1; chance--) {
-    console.log("You have ", chance, "chances");
-    const userGuess = prompt("guess: ").toLowerCase();
+    riddleQuestions(questNum);
+    console.log("\nYou have", chance, "chances");
+    const userGuess = prompt("guess😉: ").toLowerCase();
 
     if (!isGuessMatching(userGuess, questNum)) {
       console.clear();
       numberOfIncorrect++;
-      generateImage(numberOfIncorrect);
+      sceneToPlay(numberOfIncorrect, riddleAnswers(questNum));
     } else {
       won();
       break;
     }
-
   }
 }
 
 function starting() {
   console.log("WELCOME TO HANGMAN GAME \n");
-  console.log("Guess the word related to given riddle");
+  console.log("Guess the word related to given riddle\n");
 
   let numberOfIncorrect = 0;
-  const questNum = Math.ceil(Math.random() * 3);
+  const questNum = Math.ceil(Math.random() * 5);
 
-  riddleQuestions(questNum);
 
   takeInput(numberOfIncorrect, questNum);
 }
