@@ -134,7 +134,6 @@ function starting() {
   let numberOfIncorrect = 0;
   const questNum = Math.ceil(Math.random() * 5);
 
-
   takeInput(numberOfIncorrect, questNum);
 }
 
