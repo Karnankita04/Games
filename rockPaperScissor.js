@@ -10,8 +10,10 @@ function getEmoji(input) {
   switch (input) {
     case "1":
       return '🗿';
+
     case "2":
       return '🖐️';
+
     case "3":
       return '✂️';
   }
@@ -64,7 +66,7 @@ function getScore(winningContestent) {
 }
 
 function startRound() {
-  for (let turn = 1; turn <= 3; turn++) {
+  for (let round = 1; round <= 3; round++) {
     const combo = getInput();
 
     if (combo === "") {
@@ -72,7 +74,7 @@ function startRound() {
     }
 
     const winningContestent = whoWon(combo, player1, player2);
-    console.log(winningContestent, "Won");
+    console.log(winningContestent, "Won🥇");
 
     getScore(winningContestent);
   }
@@ -80,15 +82,15 @@ function startRound() {
 
 function finalWinner() {
   if (player1Score > player2Score) {
-    console.log("\nFinally", player1, "Won");
+    console.log("\nFinally", player1, "Won 🏆");
   }
 
   if (player2Score > player1Score) {
-    console.log("\nFinally", player2, "Won");
+    console.log("\nFinally", player2, "Won 🏆");
   }
 
   if (player1Score === player2Score) {
-    console.log("\nfinally Match Draw");
+    console.log("\nfinally Match Draw 🤡");
   }
 }
 
