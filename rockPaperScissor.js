@@ -6,29 +6,74 @@ const player2 = prompt("Enter Player2's name: ");
 let player1Score = 0;
 let player2Score = 0;
 
+const rock = " ┏━━━━━━┓\n ┃  ✊  ┃ \n ┗━━━━━━┛"
+const paper = " ┏━━━━━━┓\n ┃  🖐️   ┃ \n ┗━━━━━━┛";
+const scissor = " ┏━━━━━━┓\n ┃  ✌️   ┃ \n ┗━━━━━━┛";
+
+let final_emoji = "";
+
 function getEmoji(input) {
   switch (input) {
     case "1":
-      return '🗿';
+      return rock;
 
     case "2":
-      return '🖐️';
+      return paper;
 
     case "3":
-      return '✂️';
+      return scissor;
   }
+}
+
+function delay() {
+  for (let time = 1; time < 5 * 100000000; time++) {
+
+  }
+}
+
+function showAnimation(input) {
+  console.clear();
+  delay();
+  console.log(rock);
+  delay();
+  console.clear();
+  console.log(paper);
+  delay();
+  console.clear();
+  console.log(scissor);
+  delay();
+  console.clear();
+  console.log(rock);
+  delay();
+  console.clear();
+  console.log(scissor);
+  delay()
+  console.clear();
+  console.log(paper);
+  delay();
+  console.clear();
+  console.log(rock);
+  delay();
+  console.clear();
+  console.log( getEmoji(input));
 }
 
 function getInput() {
   prompt("\n" + player1 + " Shake your hand and Press Enter: ");
+  const input1 = Math.ceil(Math.random() * 3) + "";
+  showAnimation(input1);
+  console.log("\n");
+  console.log(player1, "you got", "\n");
+  console.log(getEmoji(input1),"\n");
+
   prompt(player2 + " Shake your hand and Press Enter: ");
 
-  const input1 = Math.ceil(Math.random() * 3) + "";
   const input2 = Math.ceil(Math.random() * 3) + "";
 
-  console.log("\n");
-  console.log(player1, "you got", getEmoji(input1));
-  console.log(player2, "you got", getEmoji(input2), "\n");
+
+  showAnimation(input2);
+  console.log(player2, "you got", "\n ");
+  console.log(getEmoji(input2),"\n");
 
   if (input1 === input2) {
     console.log("Match Draw\n");
