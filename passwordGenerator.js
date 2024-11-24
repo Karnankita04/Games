@@ -1,23 +1,23 @@
 console.log("WELCOME TO PASSWORD GENERATOR");
 const lengthOfPassword = prompt("Enter the length for your Password: ");
 
-const alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-let password = "";
+const capitalLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const smallLetters = capitalLetters.toLowerCase();
+const numbers = "0123456789";
+const specialChar = "#@!^&$";
 
-let char = 0;
+const passwordCandidate = capitalLetters + specialChar + smallLetters + numbers;
 
-while (char < lengthOfPassword) {
-  const index = Math.round(Math.random() * (alphabets.length - 1));
-  password = password + alphabets[index];
+function generatePassword() {
+  let password = "";
 
-  if (char === lengthOfPassword - 1) {
-    break;
+  for (let char = 1; char <= lengthOfPassword; char++) {
+    const index = Math.round(Math.random() * (passwordCandidate.length - 1));
+
+    password = password + passwordCandidate[index];
   }
 
-  const number = Math.round(Math.random() * 9);
-  password = password + number;
-
-  char = char + 2;
+  return password;
 }
 
-console.log("Your password is generated: ", password);
+console.log("Your password is generated: ", generatePassword());
