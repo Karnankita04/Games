@@ -50,8 +50,6 @@ function whoWon(combo, player1, player2) {
       return player2;
     case "32":
       return player1;
-    default:
-      return "Invalid Input";
   }
 }
 
