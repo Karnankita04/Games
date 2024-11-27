@@ -1,6 +1,68 @@
 const player1 = prompt("Enter first player's name: ");
 const player2 = prompt("Enter second player's name: ");
 
+function repeat(length) {
+  let finalString = "";
+
+  for (let times = 1; times <= length; times++) {
+    finalString += "━";
+  }
+  return finalString;
+}
+
+function isEnd(number) {
+  return number % 3 === 0;
+}
+
+function getmiddle() {
+  let row = "";
+
+  for (let number = 1; number <= 9; number++) {
+    row += "┃   " + number + "    ";
+
+    if (isEnd(number)) {
+      row += "┃";
+      row += "\n";
+      row += getFooter();
+      row += "\n";
+    }
+  }
+
+  return row;
+}
+
+function getheader() {
+  return "┏" + repeat(26) + "┓";
+}
+
+function getFooter() {
+  return "┗" + repeat(26) + "┛";
+}
+console.log(getheader() + "\n" + getmiddle());
+
+let updatedBox = getheader() + "\n" + getmiddle();
+
+function makeBox(box, currentMove, currentTurn) {
+  const sign = currentTurn === 1 ? "O" : "X";
+  let updatedBox = "";
+
+  for (let index = 0; index < box.length; index++) {
+    if (box[index] === currentMove) {
+      updatedBox += sign;
+    } else {
+      updatedBox += box[index];
+    }
+  }
+
+  return updatedBox;
+}
+
+function updatedGrid(currentMove, currentTurn) {
+  updatedBox = makeBox(updatedBox, currentMove, currentTurn);
+
+  return updatedBox;
+}
+
 function isSubset(set, subset) {
   for (let indexOfSubset = 0; indexOfSubset < subset.length; indexOfSubset++) {
     let isCharPresent = false;
@@ -55,8 +117,8 @@ function getInput(alreadyMovedPosition, message) {
 }
 
 function getInputPromptMessage(currentTurn) {
-  const msgForPlayer1 = "Player1, Enter your Input: ";
-  const msgForPlayer2 = "player2, Enter your input: ";
+  const msgForPlayer1 = player1 + " Enter your move: ";
+  const msgForPlayer2 = player2 + " Enter your move: ";
 
   return currentTurn === 1 ? msgForPlayer1 : msgForPlayer2;
 }
@@ -66,20 +128,12 @@ function updatePlayersMove(playersMove, currentMove) {
 }
 
 function winningSets(subset) {
-  switch (subset) {
-    case 1: return "123";
-    case 2: return "456";
-    case 3: return "789";
-    case 4: return "159";
-    case 5: return "357";
-    case 6: return "147";
-    case 7: return "258";
-    case 8: return "369";
-  }
+  const array = ['123', '456', '789', '159', '357', '147', '258', '369'];
+  return array[subset];
 }
 
 function isWinning(playersMove) {
-  for (let subset = 1; subset <= 8; subset++) {
+  for (let subset = 0; subset <= 7; subset++) {
     if (isSubset(playersMove, winningSets(subset))) {
       return true;
     }
@@ -121,15 +175,21 @@ function startGame() {
       player2sMove = updatePlayersMove(player2sMove, currentMove);
     }
 
+    console.clear();
+    console.log(updatedGrid(currentMove, currentTurn));
+
     updatePlayersMove(player1sMove, player2sMove, currentMove, currentTurn);
-    console.log("player1's Move: ", player1sMove);
-    console.log("player2's Move: ", player2sMove);
+    // console.log("player1's Move: ", player1sMove);
+    // console.log("player2's Move: ", player2sMove);
 
     if (isWinning(player1sMove) || isWinning(player2sMove)) {
       WhoIsWinning(player1sMove, player2sMove);
       break;
     }
 
+    if (step === 9) {
+      console.log("Match draw");
+    }
     step++;
   }
 }
